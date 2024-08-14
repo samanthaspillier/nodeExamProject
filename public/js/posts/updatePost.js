@@ -70,7 +70,7 @@ document.getElementById('postUpdateForm').addEventListener('submit', function(ev
     .then(data => {
         alert("Post updated successfully!");
         console.log('Response data:', data);
-        window.location.href = '/posts/posts.html'; // Redirect to the posts list
+        window.location.href = '/posts/posts.html'; 
     })
     .catch(error => console.error('Error updating post:', error));
 });
