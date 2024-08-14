@@ -6,7 +6,7 @@ function createPost(postData, callback) {
     
     const query = `
         INSERT INTO posts (title, content, user_id)
-        VALUES (?, ?, ?, ?);
+        VALUES (?, ?, ?);
     `;
     
     const values = [title, content, user_id];

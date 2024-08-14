@@ -6,7 +6,7 @@ function createUser(userData, callback) {
   
   const query = `
     INSERT INTO users (name, email, birthday, is_admin, password)
-    VALUES (?, ?, ?, ?, ?, ?);
+    VALUES (?, ?, ?, ?, ?);
   `;
   
   const values = [name, email, birthday, is_admin, password];
