@@ -30,7 +30,6 @@ router.get('/', (req, res) => {
 // Get a post by ID
 router.get('/post/:id', (req, res) => {
     const postId = parseInt(req.params.id, 10);
-    console.log('Fetching post with ID:', postId);
 
     postController.getPostById(postId, (err, post) => {
         if (err) {
