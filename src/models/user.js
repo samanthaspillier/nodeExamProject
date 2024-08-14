@@ -1,29 +1,35 @@
+// src/models/createUsersTable.js
 
-const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = require('../config/database'); // Assuming you have a database config file
+const connection = require('../config/mysql');
 
-const Person = sequelize.define('User', {
-    name: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    birthday: {
-        type: DataTypes.DATE,
-        allowNull: true
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
-    }, 
-    is_admin: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false
-    },
-    avatar: {
-        type: DataTypes.STRING,
-        allowNull: true
+
+// Function to create the users table
+function createUsersTable() {
+  const createUsersTableQuery = `
+      CREATE TABLE IF NOT EXISTS users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        birthday DATE,
+        avatar VARCHAR(255),
+        is_admin BOOLEAN DEFAULT false,
+        password VARCHAR(255) NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      );
+    `;
+
+  // Execute the query to create the table
+  connection.query(createUsersTableQuery, (err, results) => {
+    if (err) {
+      console.error('Error creating users table:', err.stack);
+      return;
     }
-});
+    console.log('Users table created or already exists.');
+   
+  });
+}
 
-module.exports = User;
+// Export the createUsersTable function
+module.exports = { createUsersTable };
+

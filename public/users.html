@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+</head>
+<body>
+    <h1>User Management</h1>
+
+    <!-- Form to Create a New User -->
+    <h2>Create a New User</h2>
+    <form id="createUserForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="birthday">Birthday:</label>
+        <input type="date" id="birthday" name="birthday"><br><br>
+
+        <label for="avatar">Avatar URL:</label>
+        <input type="text" id="avatar" name="avatar"><br><br>
+
+        <label for="is_admin">Is Admin:</label>
+        <input type="checkbox" id="is_admin" name="is_admin"><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <button type="submit">Create User</button>
+    </form>
+
+    <h2>Users List</h2>
+    <button id="fetchUsersButton">Fetch All Users</button>
+    <ul id="usersList"></ul>
+
+    <!-- Form to Update or Delete a User -->
+    <h2>Update or Delete User</h2>
+    <p><strong>Remark: </strong>Perform a Fetch First</p>
+    <form id="updateUserForm" style="display:none;">
+        <label for="userDropdown">Select User:</label>
+        <select id="userDropdown" name="userDropdown">
+            <option value="">--Select a User--</option>
+        </select><br><br>
+
+        <div id="updateFields" style="display:none;">
+            <label for="updateName">Name:</label>
+            <input type="text" id="updateName" name="updateName" required pattern="[A-Za-z\s]+" ><br><br>
+
+            <label for="updateEmail">Email:</label>
+            <input type="email" id="updateEmail" name="updateEmail"><br><br>
+
+            <label for="updateBirthday">Birthday:</label>
+            <input type="date" id="updateBirthday" name="updateBirthday"><br><br>
+
+            <label for="updateAvatar">Avatar URL:</label>
+            <input type="text" id="updateAvatar" name="updateAvatar"><br><br>
+
+            <label for="updateIsAdmin">Is Admin:</label>
+            <input type="checkbox" id="updateIsAdmin" name="updateIsAdmin"><br><br>
+
+            <label for="updatePassword">Password:</label>
+            <input type="password" id="updatePassword" name="updatePassword"><br><br>
+
+            <button type="submit">Update User</button>
+            <button type="button" id="deleteUserButton">Delete User</button>
+        </div>
+    </form>
+
+    <script src="/js/users.js"></script>
+    <script src="/js/validation.js"></script>
+</body>
+</html>
