@@ -70,6 +70,6 @@ This project is licensed under the ISC License - see the [LICENSE](LICENSE) file
 - [Sequelize](https://sequelize.org/) - Promise-based Node.js ORM 
 - [Postman Blogposts](https://blog.postman.com/how-to-build-an-api/) for starting with APIs
 - [Dev.to blogpost](https://dev.to/jaimaldullat/a-step-by-step-guide-to-creating-a-restful-api-using-nodejs-and-express-including-crud-operations-and-authentication-2mo2#setting-up-the-development-environment) for starting with APIs
-- ChatGPT 4o - [link to chat](https://chatgpt.com/share/2fd4017b-4c36-4464-8702-e8ade6aea748) for html layouts, adding bootstrap classes, debugging and code checks.
+- ChatGPT 4o ([link to chat](https://chatgpt.com/share/2fd4017b-4c36-4464-8702-e8ade6aea748)) for html layouts, adding bootstrap classes, debugging and code checks.
 ```
 
