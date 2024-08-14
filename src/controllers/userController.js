@@ -2,14 +2,14 @@ const connection = require('../config/mysql');
 
 // Create a new user
 function createUser(userData, callback) {
-  const { name, email, birthday, avatar, is_admin, password } = userData;
+  const { name, email, birthday, is_admin, password } = userData;
   
   const query = `
-    INSERT INTO users (name, email, birthday, avatar, is_admin, password)
+    INSERT INTO users (name, email, birthday, is_admin, password)
     VALUES (?, ?, ?, ?, ?, ?);
   `;
   
-  const values = [name, email, birthday, avatar, is_admin, password];
+  const values = [name, email, birthday, is_admin, password];
   
   connection.query(query, values, (err, results) => {
     if (err) {
@@ -33,15 +33,15 @@ function getAllUsers(callback) {
 
 // Update a user's information
 function updateUser(userId, updatedData, callback) {
-    const { name, email, birthday, avatar, is_admin, password } = updatedData;
+    const { name, email, birthday, is_admin, password } = updatedData;
 
     const query = `
         UPDATE users
-        SET name = ?, email = ?, birthday = ?, avatar = ?, is_admin = ?, password = ?
+        SET name = ?, email = ?, birthday = ?, is_admin = ?, password = ?
         WHERE id = ?;
     `;
 
-    const values = [name, email, birthday, avatar, is_admin, password, userId];
+    const values = [name, email, birthday, is_admin, password, userId];
 
     connection.query(query, values, (err, results) => {
         if (err) {

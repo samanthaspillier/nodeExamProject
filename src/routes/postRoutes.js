@@ -27,14 +27,16 @@ router.get('/', (req, res) => {
     }, limit, offset, search);
 });
 
-
 // Get a post by ID
 router.get('/post/:id', (req, res) => {
-    postController.getAllPosts((err, posts) => {
+    const postId = parseInt(req.params.id, 10);
+    console.log('Fetching post with ID:', postId);
+
+    postController.getPostById(postId, (err, post) => {
         if (err) {
+            console.error('Error fetching post:', err);
             return res.status(500).send(err);
         }
-        const post = posts.posts.find(post => post.id === parseInt(req.params.id));
         if (!post) {
             return res.status(404).send('Post not found');
         }
@@ -42,18 +44,21 @@ router.get('/post/:id', (req, res) => {
     });
 });
 
+
+
 // Update a post by ID
 router.put('/post/:id', (req, res) => {
     postController.updatePost(req.params.id, req.body, (err, result) => {
         if (err) {
-            return res.status(400).send(err);
+            return res.status(400).json({ error: err.message }); // Send JSON error response
         }
         if (result.affectedRows === 0) {
-            return res.status(404).send('Post not found');
+            return res.status(404).json({ error: 'Post not found' }); // Send JSON error response
         }
-        res.send('Post updated successfully');
+        res.json({ message: 'Post updated successfully' }); // Send JSON response
     });
 });
+
 
 // Delete a post by ID
 router.delete('/post/:id', (req, res) => {
@@ -64,7 +69,7 @@ router.delete('/post/:id', (req, res) => {
         if (result.affectedRows === 0) {
             return res.status(404).send('Post not found');
         }
-        res.send('Post deleted successfully');
+        res.json({ message: 'Post deleted successfully' }); // Send JSON response
     });
 });
 

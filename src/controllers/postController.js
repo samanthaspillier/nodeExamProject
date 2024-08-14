@@ -2,14 +2,14 @@ const connection = require('../config/mysql');
 
 // Create a new post
 function createPost(postData, callback) {
-    const { title, content, cover, user_id } = postData;
+    const { title, content, user_id } = postData;
     
     const query = `
-        INSERT INTO posts (title, content, cover, user_id)
+        INSERT INTO posts (title, content, user_id)
         VALUES (?, ?, ?, ?);
     `;
     
-    const values = [title, content, cover, user_id];
+    const values = [title, content, user_id];
     
     connection.query(query, values, (err, results) => {
         if (err) {
@@ -54,19 +54,28 @@ function getAllPosts(callback, limit = 5, offset = 0, search = '') {
     });
 }
 
+function getPostById(postId, callback) {
+    const query = 'SELECT * FROM posts WHERE id = ?';
+    connection.query(query, [postId], (err, results) => {
+        if (err) {
+            return callback(err);
+        }
+        callback(null, results[0]); // Return the first result
+    });
+}
 
 
 // Update a post's information
 function updatePost(postId, updatedData, callback) {
-    const { title, content, cover, user_id } = updatedData;
+    const { title, content, user_id } = updatedData;
 
     const query = `
         UPDATE posts
-        SET title = ?, content = ?, cover = ?, user_id = ?
+        SET title = ?, content = ?, user_id = ?
         WHERE id = ?;
     `;
 
-    const values = [title, content, cover, user_id, postId];
+    const values = [title, content, user_id, postId];
 
     connection.query(query, values, (err, results) => {
         if (err) {
@@ -93,5 +102,6 @@ module.exports = {
     createPost,
     getAllPosts,
     updatePost,
-    deletePost
+    deletePost, 
+    getPostById
 };

@@ -1,41 +1,79 @@
-// Assuming the post ID is passed as a query parameter to the updatePost.html
-const urlParams = new URLSearchParams(window.location.search);
-const postId = urlParams.get('id');
+'use strict';
 
-fetch(`/post/${postId}`)
-    .then(response => response.json())
-    .then(post => {
-        document.getElementById('updateTitle').value = post.title;
-        document.getElementById('updateContent').value = post.content;
-        document.getElementById('updateCover').value = post.cover;
-    })
-    .catch(error => console.error('Error fetching post:', error));
+// Function to fetch post data and populate the form
+function loadPostData(postId) {
+    console.log("loading post data fetch by id")
+    fetch(`/api/posts/post/${postId}`) //refer to postRoutes.js
+        .then(response => {
+            console.log(response)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(post => {
+            // fill with database data
+            document.getElementById('updateTitle').value = post.title || '';
+            document.getElementById('updateContent').value = post.content || '';
+            document.getElementById('updateCover').value = post.cover_url || '';
+        })
+        .catch(error => console.error('Error fetching post data:', error));
+}
 
+// Run when the page is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    console.log(urlParams)
+    const postId = urlParams.get('id'); // Get postId from query string
+    console.log(postId)
+
+    if (postId) {
+        loadPostData(postId);
+
+    } else {
+        console.error('No post ID provided in the URL.');
+    }
+});
+
+
+// Form submission to update the post
+// Form submission to update the post
 document.getElementById('postUpdateForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    const updatedData = {
+    const urlParams = new URLSearchParams(window.location.search);
+    const postId = urlParams.get('id'); // Get postId from query string
+
+    if (!postId) {
+        console.error('No post ID found in the URL.');
+        return;
+    }
+
+    const updatedPostData = {
         title: document.getElementById('updateTitle').value,
         content: document.getElementById('updateContent').value,
-        cover: document.getElementById('updateCover').value,
+        cover_url: document.getElementById('updateCover').value
     };
 
-    fetch(`/post/${postId}`, {
+    console.log('Updating post with ID:', postId);
+    console.log('Updated data:', updatedPostData);
+
+    fetch(`/api/posts/post/${postId}`, { // Refer to postRoutes.js
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(updatedData)
+        body: JSON.stringify(updatedPostData)
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Error updating post');
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
         return response.json();
     })
-    .then(() => {
-        alert('Post updated successfully!');
-        window.location.href = '/posts.html'; // Redirect to the posts list
+    .then(data => {
+        alert("Post updated successfully!");
+        console.log('Response data:', data);
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.error('Error updating post:', error));
 });

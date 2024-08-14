@@ -7,7 +7,7 @@ document.getElementById('postCreateForm').addEventListener('submit', function(ev
         cover: document.getElementById('createCover').value,
     };
 
-    fetch('/post', {
+    fetch('/api/posts/post', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ document.getElementById('postCreateForm').addEventListener('submit', function(ev
     })
     .then(() => {
         alert('Post created successfully!');
-        window.location.href = '/posts.html'; // Redirect to the posts list
+        window.location.href = '/posts/posts.html'; // Redirect to the posts list
     })
     .catch(error => console.error('Error:', error));
 });

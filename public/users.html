@@ -20,9 +20,6 @@
         <label for="birthday">Birthday:</label>
         <input type="date" id="birthday" name="birthday"><br><br>
 
-        <label for="avatar">Avatar URL:</label>
-        <input type="text" id="avatar" name="avatar"><br><br>
-
         <label for="is_admin">Is Admin:</label>
         <input type="checkbox" id="is_admin" name="is_admin"><br><br>
 
@@ -33,12 +30,10 @@
     </form>
 
     <h2>Users List</h2>
-    <button id="fetchUsersButton">Fetch All Users</button>
     <ul id="usersList"></ul>
 
     <!-- Form to Update or Delete a User -->
     <h2>Update or Delete User</h2>
-    <p><strong>Remark: </strong>Perform a Fetch First</p>
     <form id="updateUserForm" style="display:none;">
         <label for="userDropdown">Select User:</label>
         <select id="userDropdown" name="userDropdown">
@@ -54,9 +49,6 @@
 
             <label for="updateBirthday">Birthday:</label>
             <input type="date" id="updateBirthday" name="updateBirthday"><br><br>
-
-            <label for="updateAvatar">Avatar URL:</label>
-            <input type="text" id="updateAvatar" name="updateAvatar"><br><br>
 
             <label for="updateIsAdmin">Is Admin:</label>
             <input type="checkbox" id="updateIsAdmin" name="updateIsAdmin"><br><br>

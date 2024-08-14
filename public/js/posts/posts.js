@@ -77,7 +77,7 @@ function updatePaginationControls(page, postsCount) {
 // Function to handle the delete button click
 function deletePost(postId) {
     if (confirm('Are you sure you want to delete this post?')) {
-        fetch(`/post/${postId}`, {
+        fetch(`/api/posts/post/${postId}`, {
             method: 'DELETE'
         })
         .then(response => {

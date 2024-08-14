@@ -13,7 +13,7 @@ router.post('/user', (req, res) => {
 });
 
 // Get all users
-router.get('/', (req, res) => {  // Changed from '/users' to '/'
+router.get('/', (req, res) => {  
     userController.getAllUsers((err, users) => {
         if (err) {
             return res.status(500).send(err);
@@ -45,7 +45,7 @@ router.put('/user/:id', (req, res) => {
         if (result.affectedRows === 0) {
             return res.status(404).send('User not found');
         }
-        res.send('User updated successfully');
+        res.json({ message: 'User updated successfully' }); 
     });
 });
 
@@ -58,7 +58,9 @@ router.delete('/user/:id', (req, res) => {
         if (result.affectedRows === 0) {
             return res.status(404).send('User not found');
         }
-        res.send('User deleted successfully');
+ 
+        res.json({ message: 'User deleted successfully' }); 
+
     });
 });
 
