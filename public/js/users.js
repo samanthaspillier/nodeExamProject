@@ -1,7 +1,6 @@
 'use strict';
 
-require('validation.js');
-
+import { validateName } from './validation.js'; // Import the validateName function from validation.js
 
 // Handle the form submission to create a new user
 document.getElementById('createUserForm').addEventListener('submit', function(event) {
@@ -24,7 +23,7 @@ document.getElementById('createUserForm').addEventListener('submit', function(ev
         password: document.getElementById('password').value,
     };
 
-    fetch('/user', {
+    fetch('/api/user', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -20,11 +20,13 @@ router.get('/posts', (req, res) => {
 
     postController.getAllPosts((err, result) => {
         if (err) {
-            return res.status(500).send(err);
+            console.error('Error fetching posts:', err);
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
         res.json(result);
     }, limit, offset, search);
 });
+
 
 // Get a post by ID
 router.get('/post/:id', (req, res) => {

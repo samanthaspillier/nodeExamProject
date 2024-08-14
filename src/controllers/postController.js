@@ -21,23 +21,28 @@ function createPost(postData, callback) {
 
 // Fetch all posts with optional search by title
 function getAllPosts(callback, limit = 5, offset = 0, search = '') {
+    // Base query for fetching posts
     let query = 'SELECT SQL_CALC_FOUND_ROWS * FROM posts';
     const queryParams = [];
 
+    // If search term is provided, add a WHERE clause
     if (search) {
         query += ' WHERE title LIKE ?';
         const searchPattern = `%${search}%`;
         queryParams.push(searchPattern);
     }
 
+    // Add LIMIT and OFFSET to the query
     query += ' LIMIT ? OFFSET ?';
     queryParams.push(limit, offset);
 
+    // Execute the query to fetch posts
     connection.query(query, queryParams, (err, results) => {
         if (err) {
             return callback(err);
         }
 
+        // Execute another query to get the total number of posts
         connection.query('SELECT FOUND_ROWS() AS total', (err, totalResults) => {
             if (err) {
                 return callback(err);
@@ -48,6 +53,8 @@ function getAllPosts(callback, limit = 5, offset = 0, search = '') {
         });
     });
 }
+
+
 
 // Update a post's information
 function updatePost(postId, updatedData, callback) {

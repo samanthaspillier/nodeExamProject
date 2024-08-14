@@ -1,21 +1,18 @@
 'use strict';
 
 let currentPage = 1;
-const postsPerPage = 6; // Number of posts per page
-
-// Ensure that posts are fetched and displayed as soon as the page loads
-window.onload = function() {
-    fetchPosts();
-};
+const postsPerPage = 5; // Number of posts per page
 
 // Function to fetch posts with pagination and search
 function fetchPosts(page = 1, searchQuery = '') {
-    const url = new URL('/posts', window.location.origin);
+    const url = new URL('/api/posts', window.location.origin);
     url.searchParams.append('limit', postsPerPage);
     url.searchParams.append('offset', (page - 1) * postsPerPage);
     if (searchQuery) {
         url.searchParams.append('search', searchQuery);
     }
+
+    console.log('Fetching URL:', url.toString()); // Print URL for debugging
 
     fetch(url)
         .then(response => {
@@ -28,11 +25,9 @@ function fetchPosts(page = 1, searchQuery = '') {
             displayPosts(data.posts);
             updatePaginationControls(page, data.total);
         })
-        .catch(error => {
-            console.error('Error fetching posts:', error);
-            alert('An error occurred while fetching posts. Please try again later.');
-        });
+        .catch(error => console.error('Error fetching posts:', error));
 }
+
 
 
 // Function to display posts
@@ -41,21 +36,24 @@ function displayPosts(posts) {
     postsList.innerHTML = ''; // Clear the list before displaying new posts
 
     if (posts.length === 0) {
-        postsList.innerHTML = '<p class="text-center">No posts found.</p>';
+        postsList.innerHTML = '<p>No posts found.</p>';
         return;
     }
 
     posts.forEach(post => {
         const postItem = document.createElement('div');
-        postItem.classList.add('col-md-4', 'col-sm-6', 'mb-4'); // Bootstrap classes for responsive grid and spacing
-
+        postItem.classList.add('col-md-4'); // Bootstrap class for grid
+        postItem.classList.add('mb-4'); // Margin bottom
+        
         postItem.innerHTML = `
-            <div class="card h-100">
+            <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">${post.title}</h5>
                     <p class="card-text">${post.content}</p>
                     <p class="card-text"><small class="text-muted">Author ID: ${post.user_id}</small></p>
                     <p class="card-text"><small class="text-muted">Created At: ${new Date(post.created_at).toLocaleDateString()}</small></p>
+                    <button class="btn btn-warning btn-sm" onclick="window.location.href='/posts/updatePost.html?id=${post.id}'">Update</button>
+                    <button class="btn btn-danger btn-sm" onclick="deletePost(${post.id})">Delete</button>
                 </div>
             </div>
         `;
@@ -65,15 +63,35 @@ function displayPosts(posts) {
 
 
 // Function to update pagination controls
-function updatePaginationControls(page, totalPosts) {
+function updatePaginationControls(page, postsCount) {
     const prevPage = document.getElementById('prevPage');
     const nextPage = document.getElementById('nextPage');
     const pageInfo = document.getElementById('pageInfo');
 
     prevPage.disabled = page === 1;
-    nextPage.disabled = (page * postsPerPage) >= totalPosts;
+    nextPage.disabled = postsCount < postsPerPage;
 
-    pageInfo.textContent = `Page ${page} of ${Math.ceil(totalPosts / postsPerPage)}`;
+    pageInfo.textContent = `Page ${page}`;
+}
+
+// Function to handle the delete button click
+function deletePost(postId) {
+    if (confirm('Are you sure you want to delete this post?')) {
+        fetch(`/post/${postId}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error deleting post');
+            }
+            return response.json();
+        })
+        .then(() => {
+            alert('Post deleted successfully!');
+            fetchPosts(currentPage); // Reload posts after deletion
+        })
+        .catch(error => console.error('Error:', error));
+    }
 }
 
 // Event listener for pagination controls
@@ -96,4 +114,7 @@ document.getElementById('searchButton').addEventListener('click', () => {
     fetchPosts(currentPage, searchQuery);
 });
 
-
+// Initial fetch of posts when the page loads
+window.onload = function() {
+    fetchPosts();
+};
