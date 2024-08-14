@@ -15,7 +15,6 @@ function loadPostData(postId) {
             // fill with database data
             document.getElementById('updateTitle').value = post.title || '';
             document.getElementById('updateContent').value = post.content || '';
-            document.getElementById('updateCover').value = post.cover_url || '';
         })
         .catch(error => console.error('Error fetching post data:', error));
 }
@@ -35,8 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
-// Form submission to update the post
 // Form submission to update the post
 document.getElementById('postUpdateForm').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -52,7 +49,6 @@ document.getElementById('postUpdateForm').addEventListener('submit', function(ev
     const updatedPostData = {
         title: document.getElementById('updateTitle').value,
         content: document.getElementById('updateContent').value,
-        cover_url: document.getElementById('updateCover').value
     };
 
     console.log('Updating post with ID:', postId);
@@ -74,6 +70,7 @@ document.getElementById('postUpdateForm').addEventListener('submit', function(ev
     .then(data => {
         alert("Post updated successfully!");
         console.log('Response data:', data);
+        window.location.href = '/posts/posts.html'; // Redirect to the posts list
     })
     .catch(error => console.error('Error updating post:', error));
 });

@@ -4,63 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 30px;
+        }
+        .form-section {
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 <body>
-    <h1>User Management</h1>
+    <div class="container">
+        <h1 class="text-center mb-4">User Management</h1>
 
-    <!-- Form to Create a New User -->
-    <h2>Create a New User</h2>
-    <form id="createUserForm">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required><br><br>
+        <!-- Form to Create a New User -->
+        <div class="form-section">
+            <h2>Create a New User</h2>
+            <form id="createUserForm">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" class="form-control" required>
+                </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" class="form-control" required>
+                </div>
 
-        <label for="birthday">Birthday:</label>
-        <input type="date" id="birthday" name="birthday"><br><br>
+                <div class="form-group">
+                    <label for="birthday">Birthday:</label>
+                    <input type="date" id="birthday" name="birthday" class="form-control">
+                </div>
 
-        <label for="is_admin">Is Admin:</label>
-        <input type="checkbox" id="is_admin" name="is_admin"><br><br>
+                <div class="form-group form-check">
+                    <input type="checkbox" id="is_admin" name="is_admin" class="form-check-input">
+                    <label for="is_admin" class="form-check-label">Is Admin</label>
+                </div>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
 
-        <button type="submit">Create User</button>
-    </form>
-
-    <h2>Users List</h2>
-    <ul id="usersList"></ul>
-
-    <!-- Form to Update or Delete a User -->
-    <h2>Update or Delete User</h2>
-    <form id="updateUserForm" style="display:none;">
-        <label for="userDropdown">Select User:</label>
-        <select id="userDropdown" name="userDropdown">
-            <option value="">--Select a User--</option>
-        </select><br><br>
-
-        <div id="updateFields" style="display:none;">
-            <label for="updateName">Name:</label>
-            <input type="text" id="updateName" name="updateName" required pattern="[A-Za-z\s]+" ><br><br>
-
-            <label for="updateEmail">Email:</label>
-            <input type="email" id="updateEmail" name="updateEmail"><br><br>
-
-            <label for="updateBirthday">Birthday:</label>
-            <input type="date" id="updateBirthday" name="updateBirthday"><br><br>
-
-            <label for="updateIsAdmin">Is Admin:</label>
-            <input type="checkbox" id="updateIsAdmin" name="updateIsAdmin"><br><br>
-
-            <label for="updatePassword">Password:</label>
-            <input type="password" id="updatePassword" name="updatePassword"><br><br>
-
-            <button type="submit">Update User</button>
-            <button type="button" id="deleteUserButton">Delete User</button>
+                <button type="submit" class="btn btn-primary">Create User</button>
+            </form>
         </div>
-    </form>
 
+        <!-- Users List -->
+        <div class="form-section">
+            <h2>Users List</h2>
+            <ul id="usersList" class="list-group">
+                <!-- List items will be populated here -->
+            </ul>
+        </div>
+
+        <!-- Form to Update or Delete a User -->
+        <div class="form-section">
+            <h2>Update or Delete User</h2>
+            <form id="updateUserForm" style="display:none;">
+                <div class="form-group">
+                    <label for="userDropdown">Select User:</label>
+                    <select id="userDropdown" name="userDropdown" class="form-control">
+                        <option value="">--Select a User--</option>
+                    </select>
+                </div>
+
+                <div id="updateFields" style="display:none;">
+                    <div class="form-group">
+                        <label for="updateName">Name:</label>
+                        <input type="text" id="updateName" name="updateName" class="form-control" required pattern="[A-Za-z\s]+">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="updateEmail">Email:</label>
+                        <input type="email" id="updateEmail" name="updateEmail" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="updateBirthday">Birthday:</label>
+                        <input type="date" id="updateBirthday" name="updateBirthday" class="form-control">
+                    </div>
+
+                    <div class="form-group form-check">
+                        <input type="checkbox" id="updateIsAdmin" name="updateIsAdmin" class="form-check-input">
+                        <label for="updateIsAdmin" class="form-check-label">Is Admin</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="updatePassword">Password:</label>
+                        <input type="password" id="updatePassword" name="updatePassword" class="form-control">
+                    </div>
+
+                    <button type="submit" class="btn btn-warning">Update User</button>
+                    <button type="button" id="deleteUserButton" class="btn btn-danger">Delete User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="module" src="/js/users.js"></script>
 </body>
 </html>

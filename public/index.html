@@ -4,18 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            margin-top: 30px;
+        }
+        .page-title {
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to API Management</h1>
+    <div class="container">
+        <div class="page-title">
+            <h1 class="text-center">Welcome my API web interface</h1>
+        </div>
 
-    <!-- Link to Users Interface -->
-    <h2>Manage Users</h2>
-    <p><a href="/users.html">Go to Users Management</a></p>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h2 class="card-title">Manage Users</h2>
+                    </div>
+                    <div class="card-body text-center">
+                        <p><a href="/users.html" class="btn btn-primary">Go to Users Management</a></p>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Placeholder for Post Management Interface -->
-    <h2>Manage Posts</h2>
-    <p><a href="./posts/posts.html">Go to Post Management</a></p>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header text-center">
+                        <h2 class="card-title">Manage Posts</h2>
+                    </div>
+                    <div class="card-body text-center">
+                        <p><a href="./posts/posts.html" class="btn btn-primary">Go to Post Management</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Additional content can be added here -->
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
