@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../controllers/userController'); // Import the controller
+const userController = require('../controllers/userController');
 
 // Create a new user
 router.post('/user', (req, res) => {
@@ -13,7 +13,7 @@ router.post('/user', (req, res) => {
 });
 
 // Get all users
-router.get('/users', (req, res) => {
+router.get('/', (req, res) => {  // Changed from '/users' to '/'
     userController.getAllUsers((err, users) => {
         if (err) {
             return res.status(500).send(err);

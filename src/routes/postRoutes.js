@@ -13,7 +13,7 @@ router.post('/post', (req, res) => {
 });
 
 // Get all posts with pagination and optional search by title
-router.get('/posts', (req, res) => {
+router.get('/', (req, res) => {
     const limit = parseInt(req.query.limit) || 5;
     const offset = parseInt(req.query.offset) || 0;
     const search = req.query.search || '';

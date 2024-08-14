@@ -10,9 +10,11 @@ document.getElementById('createUserForm').addEventListener('submit', function(ev
 
     // Validate name
     if (!validateName(name)) {
+        console.error('Validation failed for name:', name);
         alert('Name cannot contain numbers or special characters.');
         return; // Stop the form submission
     }
+    
    
     const formData = {
         name: name,
@@ -30,7 +32,12 @@ document.getElementById('createUserForm').addEventListener('submit', function(ev
         },
         body: JSON.stringify(formData)
     })
-    .then(response => response.json())
+    .then(response => {
+        if(!response.ok){
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
         alert('User created successfully!');
         console.log(data);
@@ -40,8 +47,13 @@ document.getElementById('createUserForm').addEventListener('submit', function(ev
 
 // Fetch and display all users in the dropdown and the list
 document.getElementById('fetchUsersButton').addEventListener('click', function() {
-    fetch('/users')
-        .then(response => response.json())
+    fetch('/api/users')
+        .then(response =>  {
+            if(!response.ok){
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json()
+    })
         .then(data => {
             const usersList = document.getElementById('usersList');
             const userDropdown = document.getElementById('userDropdown');
@@ -72,8 +84,13 @@ document.getElementById('userDropdown').addEventListener('change', function() {
     const userId = this.value;
 
     if (userId) {
-        fetch(`/user/${userId}`)
-            .then(response => response.json())
+        fetch(`/api/user/${userId}`)
+            .then(response =>  {
+                if(!response.ok){
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json()
+            })
             .then(user => {
                 // Populate the update form fields with the selected user's data
                 document.getElementById('updateName').value = user.name;
@@ -113,14 +130,19 @@ document.getElementById('updateUserForm').addEventListener('submit', function(ev
         password: document.getElementById('updatePassword').value,
     };
 
-    fetch(`/user/${userId}`, {
+    fetch(`/api/user/${userId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(updatedData)
     })
-    .then(response => response.json())
+    .then(response =>  {
+        if(!response.ok){
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json()
+    })
     .then(data => {
         alert('User updated successfully!');
         console.log(data);
@@ -135,10 +157,15 @@ document.getElementById('deleteUserButton').addEventListener('click', function()
     const userId = document.getElementById('userDropdown').value;
 
     if (confirm('Are you sure you want to delete this user?')) {
-        fetch(`/user/${userId}`, {
+        fetch(`/api/user/${userId}`, {
             method: 'DELETE'
         })
-        .then(response => response.json())
+        .then(response =>  {
+            if(!response.ok){
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json()
+        })
         .then(data => {
             alert('User deleted successfully!');
             console.log(data);

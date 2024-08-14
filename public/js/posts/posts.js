@@ -1,7 +1,7 @@
 'use strict';
 
 let currentPage = 1;
-const postsPerPage = 5; // Number of posts per page
+const postsPerPage = 6; // Number of posts per page
 
 // Function to fetch posts with pagination and search
 function fetchPosts(page = 1, searchQuery = '') {

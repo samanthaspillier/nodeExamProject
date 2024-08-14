@@ -12,8 +12,8 @@ app.use(express.static(path.join(__dirname, '../public'))); // Serve static file
 app.use(express.json()); // JSON parsing middleware
 
 // API Routes
-app.use('/api/users', userRoutes); // Use the user routes with a prefix
-app.use('/api/posts', postRoutes); // Use the post routes with a prefix
+app.use('/api/users', userRoutes); 
+app.use('/api/posts', postRoutes); 
 
 // Log all requests
 app.use((req, res, next) => {
